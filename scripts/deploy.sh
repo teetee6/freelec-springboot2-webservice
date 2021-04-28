@@ -8,8 +8,8 @@ echo "> Build 파일 복사"
 cp $REPOSITORY/zip/*.jar $REPOSITORY/
 
 echo "> 현재 구동 중인 애플리케이션 pid 확인"
-
-CURRENT_PID=$(pgrep -fl freelec-springboot2-webservice | grep jar | awk '{print $1}')
+#본문에는 jar로 나와있는데, 프로세스 이름이 나는 자바(java)라고 떠서 java로 추출함
+CURRENT_PID=$(pgrep -fl freelec-springboot2-webservice | grep java | awk '{print $1}')
 
 echo "현재 구동 중인 애플리케이션 pid: $CURRENT_PID"
 
@@ -37,3 +37,5 @@ nohup java -jar \
   -Dspring.config.location=classpath:/application.properties,classpath:/application-real.properties,/home/ec2-user/app/application-oauth.properties,/home/ec2-user/app/application-real-db.properties \
   -Dspring.profiles.active=real \
   $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
+
+nohup java -jar -Dspring.config.location=classpath:/application.properties,classpath:/application-real.properties,/home/ec2-user/app/application-oauth.properties,/home/ec2-user/app/application-real-db.properties -Dspring.profiles.active=real freelec-springboot2-webservice-1.0.1-SNAPSHOT.jar > /home/ec2-user/app/step2/nohup.out 2>&1 &
