@@ -2,4 +2,6 @@
 
 .gradle
 .idea
+build/reports
+build/test-results
 application-oauth.properties
